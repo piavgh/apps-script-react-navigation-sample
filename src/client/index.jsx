@@ -5,5 +5,5 @@ import Sidebar from './components/sidebar'
 
 render(
   <Sidebar />,
-  document.getElementById('index'),
+  document.getElementById('sidebar'),
 )
