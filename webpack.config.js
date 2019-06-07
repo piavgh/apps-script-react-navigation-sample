@@ -15,6 +15,12 @@ const htmlPlugin = new HtmlWebpackPlugin({
   inlineSource: '.(js|css)$' // embed all javascript and css inline
 });
 
+const html2Plugin = new HtmlWebpackPlugin({
+  template: "./src/client/about-template.html",
+  filename: "about.html",
+  inlineSource: '.(js|css)$' // embed all javascript and css inline
+});
+
 const htmlWebpackInlineSourcePlugin = new HtmlWebpackInlineSourcePlugin();
 
 const sharedConfigSettings = {
@@ -118,8 +124,40 @@ const serverConfig = Object.assign({}, sharedConfigSettings, {
   ]
 });
 
+const aboutConfig = Object.assign({}, sharedConfigSettings, {
+  name: "CLIENT",
+  entry: "./src/client/aboutPage.jsx",
+  output: {
+    path: path.resolve(__dirname, destination)
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json']
+  },
+  module: {
+    rules: [
+      // eslintConfig,
+      {
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      },
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      }
+    ],
+  },
+  plugins: [
+    html2Plugin,
+    new HtmlWebpackInlineSourcePlugin()
+  ]
+});
+
 module.exports = [
   appsscriptConfig,
   clientConfig,
   serverConfig,
+  aboutConfig,
 ];
