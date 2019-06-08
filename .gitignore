@@ -1,2 +1,2 @@
-node_modules
-.clasp*
+node_modules/
+.clasp.json
